@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    before_action :get_user, only: [:show]
+
 
     def create
         byebug
@@ -12,11 +14,19 @@ class UsersController < ApplicationController
         else
             error_array = []
             @user.errors.messages.each {|e| error_array.push(e)}
-            render :json => { "message": error_array }
+            render json: { "message": error_array }
         end
-
     end
 
+    def show
+        render json: @user.to_json(
+            except: [:id, :password_digest, :password_cofirmation, :created_at, :updated_at]
+        )
+
+        # render json: @user.to_json( include: :bikes,
+        #     except: [:id, :password_digest, :password_cofirmation, :created_at, :updated_at]
+        # )
+    end       
 
     private
 
