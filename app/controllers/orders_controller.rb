@@ -56,7 +56,7 @@ class OrdersController < ApplicationController
             array_of_removals = id_array.find_all {|id| id === @bike.id}
             array_of_removals.pop
 
-            @order.bikes.delete(@bike)    
+            @order.bikes.delete(@bike)
             
             array_of_removals.each do |b_id|
                 @bike = Bike.all.find_by(id: b_id)
